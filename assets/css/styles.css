@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Escola de Educação Infantil São Marcos — Estilos Complementares
+   Base estética: Outfit + superfícies arredondadas (15px) + sombras suaves
+   ========================================================================== */
+
+:root {
+  --color-primary: #005A52;
+  --color-primary-dark: #00433D;
+  --color-primary-darker: #00312C;
+  --color-secondary: #92D050;
+  --color-secondary-dark: #78B838;
+  --color-bg: #FFFFFF;
+  --color-surface: #F4F8F7;
+  --color-text: #111827;
+  --shadow-template: 0 0 60px rgba(0, 0, 0, 0.10);
+  --shadow-card: 0 12px 40px rgba(0, 90, 82, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Compensação de rolagem para cabeçalho fixo (sticky) */
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Evita flash de conteúdo Alpine antes da hidratação */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Efeito hover suave nos links do menu superior (sem alterar tamanho ou posição) */
+.nav-link {
+  position: relative;
+  color: #526563;
+  transition: color 0.22s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary-darker);
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: #002824;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Sombras inspiradas na referência visual (blur 60px, opacidade 0.1) */
+.shadow-soft-xl {
+  box-shadow: var(--shadow-template);
+}
+
+.shadow-card-hover {
+  box-shadow: var(--shadow-card);
+}
+
+/* Transição suave para cards e botões */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 55px rgba(0, 90, 82, 0.14);
+}
+
+/* Card de processo com gradiente sutil e destaque no hover (referência seção 7) */
+.step-card {
+  background: linear-gradient(160deg, #FFFFFF 0%, #F2F8F6 100%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-secondary);
+  box-shadow: 0 18px 50px rgba(0, 90, 82, 0.12);
+}
+
+/* Efeito sutil no botão flutuante do WhatsApp */
+@keyframes wa-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-float {
+  animation: wa-pulse 2.8s infinite;
+}
+
+.whatsapp-float:hover {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .whatsapp-float {
+    animation: none;
+  }
+  .card-lift:hover,
+  .step-card:hover {
+    transform: none;
+  }
+}
